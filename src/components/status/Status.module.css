@@ -1,0 +1,31 @@
+.status {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: grid;
+  align-content: space-evenly;
+  justify-items: center;
+  background-color: #00000080;
+  color: white;
+
+  z-index: 4;
+  font-size: 32px;
+  & p {
+    font-size: 24px;
+    background-color: var(--bckg-clr);
+    color: var(--txt-clr);
+    padding: 4px 14px;
+    border-radius: 14px;
+  }
+  & button {
+    font-size: 24px;
+    color: var(--othr-btn-txt-clr);
+    background-color: var(--othr-btn-clr);
+    border-radius: 8px;
+    width: 150px;
+    border: 0;
+    padding: 2px 4px;
+    position: relative;
+    top: 108px;
+  }
+}

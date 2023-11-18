@@ -1,0 +1,43 @@
+.button {
+  display: block;
+  min-width: 120px;
+  max-width: 350px;
+  text-align: center;
+  height: 48px;
+  border-radius: 14px;
+  font-size: 24px;
+  color: var(--txt-clr);
+  background: var(--gss-btn-clr);
+  border-radius: 8px;
+  border: 0;
+  padding: 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.correct {
+  background: var(--correct-clr);
+}
+.wrong {
+  background: var(--wrong-clr);
+}
+.blocked,.wait{
+  pointer-events: none;
+  filter: brightness(0.7);
+}
+.wait {
+  
+  background: linear-gradient(90deg, var(--gss-btn-clr), grey,var(--gss-btn-clr));
+  background-size: 500% 500%;
+  animation: waiting 1.5s infinite ease-in;
+}
+
+@keyframes waiting {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position:125% 125%;
+  }
+  
+}
