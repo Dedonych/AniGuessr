@@ -12,6 +12,7 @@ export interface Settings {
 	minScore: number;
 	nsfw: boolean|'only';
 	theme: boolean;
+    isMAL:boolean;
 }
 
 export interface Player {

@@ -16,14 +16,14 @@ export default function Menu() {
                 onChange={(e) => handleChangeCheckbox(e.target.checked, "theme")}
             />
         </label>
-        <label>
+        <label title='Enable Russian names of titles'>
             <p>is Rus:</p>
             <input type="checkbox"
                 checked={settings.rus}
                 onChange={(e) => handleChangeCheckbox(e.target.checked, "rus")}
             />
         </label>
-        <label>
+        <label title='Minimal rating on MAL'>
             <p>Min score:</p>
             <input type="number"
                 max={10}
@@ -34,8 +34,16 @@ export default function Menu() {
                 onInput={handleInput}
             />
         </label>
+        <label title='Use MAL link instead Shikimori'>
+            <p>MAL links</p>
+            <input type="checkbox"
+                name='isMAL'
+                checked={settings.isMAL}
+                onChange={(e) => handleChangeCheckbox(e.target.checked, "isMAL")}
+                />
+        </label>
         <p>Censored</p>
-        <label>
+        <label title='Exclude NSFW animes'>
             <input type="radio"
                 name='nsfw'
                 checked={settings.nsfw == true}
@@ -44,7 +52,7 @@ export default function Menu() {
                 />
                 <p>Disabled</p>
         </label>
-        <label>
+        <label title='Include NSFW animes'>
             <input type="radio"
                 name='nsfw'
                 checked={settings.nsfw == false}
@@ -53,7 +61,7 @@ export default function Menu() {
                 />
                 <p>Enabled</p>
         </label>
-        <label>
+        <label title='Use only Rx animes'>
             <input type="radio"
                 name='nsfw'
                 checked={settings.nsfw == 'only'}

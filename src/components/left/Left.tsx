@@ -4,8 +4,8 @@ import classes from './Left.module.css';
 import { useContext, useState } from 'react'
 
 export default function Left() {
-    const { player: { maxScore }, prev, history, settings: { rus } } = useContext(APIContext);
-    const url = `https://shikimori.one/animes/`;
+    const { player: { maxScore }, prev, history, settings: { rus ,isMAL} } = useContext(APIContext);
+    const url =`https://${isMAL?"myanimelist.net/anime/":"shikimori.one/animes/"}`;
     const [open, isOpen] = useState(false);
     const handleClick = () => {
         return isOpen(!open);

@@ -6,7 +6,8 @@ const nullData: IAPI = {
         rus: false,
         minScore: 5,
         nsfw: false,
-        theme: true
+        theme: true,
+        isMAL:false
     },
     player: {
         maxScore: 0,
@@ -26,7 +27,7 @@ const nullData: IAPI = {
     },
 };
 
-type StorageType = [boolean, number, boolean, boolean, number];
+type StorageType = [boolean, number, boolean, boolean,boolean, number];
 const getStorage = () => {
     const d = localStorage.getItem('settings');
     if (!d) return nullData;
@@ -42,10 +43,11 @@ const getStorage = () => {
             minScore: parsedData[1],
             nsfw: parsedData[2],
             theme: parsedData[3],
+            isMAL: parsedData[4],
         },
         player: {
             currentScore: 0,
-            maxScore: parsedData[4],
+            maxScore: parsedData[5],
         },
     };
 }
