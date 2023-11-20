@@ -7,8 +7,9 @@
    "description": "Guess anime from preview",
    "icons": {
       "128": "logo.png",
-      "48": "logo.png",
-      "16": "logo.png"
+      "48": "logo64.png",
+      "64":"logo64.png",
+      "16": "logo64.png"
    },
    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7YAGKCJLTvjKVyrC5qO+eolbfavaKeI0vqTvcKxWqvKrguBg+CHAABwLwLl0OPWQb1NQs6AomHPUP59LRkfuJzVjowBRNlqJ7itH1y9Bj1r22GI1PhufCkvc0KQRXGqdyDLDUWCe1ln2J/59QOHrsrc9RgchdvN8QUEtfn57ycHYFBL8fY9XqdU0EVWH/nP1LR4Kjsft0aaGHqRaT8nQk+nKfVQgRg6a2yuoT9jD673qlYlzu6b33Gvw3NVvYEh8pcZPfF/O2ENhlBzFVN0VCU45953UGkPcx2D0ttc6VTjOUKcSEL/fGQRsYlO4shiUq+8uvMTmPXMX6I/+ydcogwIDAQAB",
    "name": "AniGuessr",
