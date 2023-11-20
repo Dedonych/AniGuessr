@@ -4,9 +4,8 @@
   <img height="128" src="./public/logo.png"/>
 </div> 
 
-Данное расширение использует [shikimori API](https://shikimori.me/api/doc/1.0) и никак не связан с ним или с сайтом.
 
-## Install
+## Установка
 Для Оперы, используйте [Opera addons](https://addons.opera.com/ru/extensions/details/aniguessr/)
 <br/>
 Для других браузеров, скачайте [файл](./dist.crx) и установите как локальное расширение.
