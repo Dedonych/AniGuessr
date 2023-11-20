@@ -3,7 +3,7 @@
    "action": {
       "default_popup": "index.html"
    },
-   "author": "ddddkakds@gmail.com",
+   "author": "https://github.com/Dedonych",
    "description": "Guess anime from preview",
    "icons": {
       "128": "logo.png",
@@ -14,5 +14,5 @@
    "name": "AniGuessr",
    "permissions": [ "storage"],
    "update_url": "https://extension-updates.opera.com/api/omaha/update/",
-   "version": "1.5"
+   "version": "1.6"
 }
