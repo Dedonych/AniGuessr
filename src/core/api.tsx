@@ -88,7 +88,7 @@ function APIProvider({ children }: { children: React.ReactNode }) {
     const resetAll = () => (handleSetCurrentHint(null), handleChangeStatus(null), resetData(), setHints(nullData.hints), setExcludesIds([]), incScore(0));
     const checkAnswer = (is: boolean) => (setPrev(data.answer), is ? (decHints(), incScore(),setCurrentHint(null), addExcludesIds()) : handleChangeStatus('lose'));
     const restartGame = () => (addRound(), resetAll())
-    const toggleHint = (name: 'fifty' | 'info' | 'skip') => (setHints(p => ({ ...p, [name]: nullData.hints[name] })), name === 'skip' && next());
+    const toggleHint = (name: 'fifty' | 'info' | 'skip') => (setHints(p => ({ ...p, [name]: nullData.hints[name] })),setCurrentHint(name), name === 'skip' && next());
     function setSettingsToURL() {
         const { minScore: min, nsfw } = settings
         let _set = '';
