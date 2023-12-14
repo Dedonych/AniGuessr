@@ -14,5 +14,5 @@
    "name": "AniGuessr",
    "permissions": [ "storage"],
    "update_url": "https://extension-updates.opera.com/api/omaha/update/",
-   "version": "1.6.2"
+   "version": "1.6.3"
 }
