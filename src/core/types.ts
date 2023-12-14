@@ -20,6 +20,7 @@ export interface Player {
 	currentScore: number;
 }
 export interface Hints{
+    [key:string]:number;
     fifty:number;
     info:number;
     skip:number;
@@ -48,6 +49,7 @@ export interface APIFunction extends IAPI{
     toggleHint?(name:'fifty' | 'info' | 'skip'):void;
     restartGame?():void;
     addHistory?(t:Titles[]):void;
+    hintsCount?:number[];
 }
 export interface IResponse {
     id: number;

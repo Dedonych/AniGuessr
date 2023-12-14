@@ -41,7 +41,7 @@ function MenuButton() {
 
     }
   }
-  return <button className={`menuBtn${isMenu ? ' active' : ''}`} onClick={handleClick}>
+  return <button className={`menuBtn${isMenu ? ' active' : ''}${clickToSave?' changed':''}`} onClick={handleClick}>
     <Gear />
   </button>
 }

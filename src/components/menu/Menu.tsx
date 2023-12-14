@@ -2,9 +2,9 @@ import { APIContext } from '../../core/api';
 import classes from './Menu.module.css';
 import { useState, useContext } from 'react';
 export default function Menu() {
-    const { settings, updateSetting } = useContext(APIContext)
+    const { settings, updateSetting } = useContext(APIContext);
     const handleChangeCheckbox = (value: boolean | number | 'only', name: string) => {
-        updateSetting!(name,value);
+        updateSetting!(name, value);
     }
     const [value, setValue] = useState(settings.minScore);
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => setValue(+e.target.value);
@@ -16,15 +16,24 @@ export default function Menu() {
                 onChange={(e) => handleChangeCheckbox(e.target.checked, "theme")}
             />
         </label>
+        <label title='Use MAL link instead Shikimori'>
+            <p>MAL links:</p>
+            <input type="checkbox"
+                name='isMAL'
+                checked={settings.isMAL}
+                onChange={(e) => handleChangeCheckbox(e.target.checked, "isMAL")}
+            />
+        </label>
         <label title='Enable Russian names of titles'>
-            <p>is Rus:</p>
+            <p>* is Rus:</p>
             <input type="checkbox"
                 checked={settings.rus}
                 onChange={(e) => handleChangeCheckbox(e.target.checked, "rus")}
             />
         </label>
+
         <label title='Minimal rating on MAL'>
-            <p>Min score:</p>
+            <p>* Min score:</p>
             <input type="number"
                 max={10}
                 min={0}
@@ -34,23 +43,16 @@ export default function Menu() {
                 onInput={handleInput}
             />
         </label>
-        <label title='Use MAL link instead Shikimori'>
-            <p>MAL links</p>
-            <input type="checkbox"
-                name='isMAL'
-                checked={settings.isMAL}
-                onChange={(e) => handleChangeCheckbox(e.target.checked, "isMAL")}
-                />
-        </label>
-        <p>Censored</p>
+
+        <p>* Censored:</p>
         <label title='Exclude NSFW animes'>
             <input type="radio"
                 name='nsfw'
                 checked={settings.nsfw == true}
                 value={`${settings.nsfw == true}`}
                 onChange={() => handleChangeCheckbox(true, "nsfw")}
-                />
-                <p>Disabled</p>
+            />
+            <p>Disabled</p>
         </label>
         <label title='Include NSFW animes'>
             <input type="radio"
@@ -58,8 +60,8 @@ export default function Menu() {
                 checked={settings.nsfw == false}
                 value={`${settings.nsfw == false}`}
                 onChange={() => handleChangeCheckbox(false, "nsfw")}
-                />
-                <p>Enabled</p>
+            />
+            <p>Enabled</p>
         </label>
         <label title='Use only Rx animes'>
             <input type="radio"
@@ -67,8 +69,10 @@ export default function Menu() {
                 checked={settings.nsfw == 'only'}
                 value={`${settings.nsfw == 'only'}`}
                 onChange={() => handleChangeCheckbox('only', "nsfw")}
-                />
-                <p>Only</p>
+            />
+            <p>Only</p>
         </label>
+        <a href="/index.html" target='_blank' className={classes.open}>Open in new Page</a>
+        <p className={classes.hint}>* - all change make restart current game</p>
     </div>
 }

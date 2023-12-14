@@ -4,8 +4,8 @@ import classes from './Left.module.css';
 import { useContext, useState } from 'react'
 
 export default function Left() {
-    const { player: { maxScore }, prev, history, settings: { rus ,isMAL} } = useContext(APIContext);
-    const url =`https://${isMAL?"myanimelist.net/anime/":"shikimori.one/animes/"}`;
+    const { player: { maxScore }, prev, history, settings: { rus, isMAL} } = useContext(APIContext);
+    const url = `https://${isMAL ? "myanimelist.net/anime/" : "shikimori.one/animes/"}`;
     const [open, isOpen] = useState(false);
     const handleClick = () => {
         return isOpen(!open);
@@ -35,12 +35,12 @@ export default function Left() {
                             {
                                 e.map((el, ind) => {
                                     if (el.length === 1)
-                                        return <li key={`${i}-${ind}`}>{ind+1}
-                                            <Link href={url + el[0].id} style={{ backgroundColor: "var(--correct-clr)" }}>{rus ? el[0].russian : el[0].name}</Link>
+                                        return <li key={`${i}-${ind}`}>{ind + 1}
+                                            <Link href={url + el[0].id} style={{ backgroundColor: "var(--correct-clr)" }}>{rus ? el[0].russian ? el[0].russian : el[0].name : el[0].name}</Link>
                                         </li>
                                     return <li key={`${i}-${ind}`}>
-                                        <Link href={url + el[0].id} style={{ backgroundColor: "var(--wrong-clr)" }}>{rus ? el[0].russian : el[0].name}</Link>
-                                        <Link href={url + el[1].id} style={{ backgroundColor: "var(--correct-clr)" }}>{rus ? el[1].russian : el[1].name}</Link>
+                                        <Link href={url + el[0].id} style={{ backgroundColor: "var(--wrong-clr)" }}>{rus ? el[0].russian ? el[0].russian : el[0].name : el[0].name}</Link>
+                                        <Link href={url + el[1].id} style={{ backgroundColor: "var(--correct-clr)" }}>{rus ? el[1].russian ? el[1].russian : el[1].name : el[1].name}</Link>
                                     </li>;
                                 })
                             }

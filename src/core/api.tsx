@@ -7,7 +7,7 @@ const nullData: IAPI = {
         minScore: 5,
         nsfw: false,
         theme: true,
-        isMAL:false
+        isMAL: false
     },
     player: {
         maxScore: 0,
@@ -26,8 +26,13 @@ const nullData: IAPI = {
         skip: 15
     },
 };
+import.meta.env.DEV && (nullData.hints = {
+    fifty: 1,
+    info: 2,
+    skip: 3
+})
 
-type StorageType = [boolean, number, boolean, boolean,boolean, number];
+type StorageType = [boolean, number, boolean, boolean, boolean, number];
 const getStorage = () => {
     const d = localStorage.getItem('settings');
     if (!d) return nullData;
@@ -59,13 +64,22 @@ function APIProvider({ children }: { children: React.ReactNode }) {
     const [data, setData] = useState(storage.data);
     const [hints, setHints] = useState(storage.hints);
     const [excludes_ids, setExcludesIds] = useState<number[]>([]);
-
     const [round, setRound] = useState(0);
     const addRound = () => setRound(p => p + 1);
 
     const [history, setHistory] = useState<Titles[][][]>([]);
     const addHistory = (t: Titles[]) => setHistory(prev => [...prev.slice(0, round), [...(prev[round] || []), t], ...prev.slice(round + 1)]);
-
+    //   f,i,s
+    const [hintsCount, SetHintsCount] = useState<[number, number, number]>([0, 0, 0]);
+    enum HintsEnum {
+        fifty,
+        info,
+        skip,
+    }
+    const handleSetHintsCount = (key: keyof typeof HintsEnum) => SetHintsCount((p) => {
+        p[HintsEnum[key]]++;
+        return p;
+    });
     const [status, setStatus] = useState<'win' | 'lose' | null>(null);
     const handleChangeStatus = (s: 'win' | 'lose' | null) => setStatus(s);
 
@@ -78,31 +92,12 @@ function APIProvider({ children }: { children: React.ReactNode }) {
     const updateSetting = (key: string, value: boolean | number | 'only') => setSettings(prev => ({ ...prev, [key]: value }));
     const incScore = (_c = player.currentScore + 1, _m = player.maxScore < _c ? _c : player.maxScore) => setPlayer({ maxScore: _m, currentScore: _c });
     const addExcludesIds = (_ids: number | number[] = data.titles.map(({ id }) => id)) => setExcludesIds(p => ([...new Set([...p, ...(typeof _ids === 'number' ? [_ids] : _ids)])]));
-    const decHints = (_f = hints.fifty == 0, _i = hints.info == 0, _s = hints.skip == 0) =>
-        setHints(p => ({
-            fifty: _f ? 0 : p.fifty - 1,
-            info: _i ? 0 : p.info - 1,
-            skip: _s ? 0 : p.skip - 1
-        }));
+    const decHints = ([fifty, info, skip] = Object.keys(hints).map(e => hints[e] == 0 ? 0 : hints[e] - 1)) => setHints({ fifty, info, skip, });
     const resetData = () => setData(nullData.data);
     const resetAll = () => (handleSetCurrentHint(null), handleChangeStatus(null), resetData(), setHints(nullData.hints), setExcludesIds([]), incScore(0));
-    const checkAnswer = (is: boolean) => (setPrev(data.answer), is ? (decHints(), incScore(),setCurrentHint(null), addExcludesIds()) : handleChangeStatus('lose'));
-    const restartGame = () => (addRound(), resetAll())
-    const toggleHint = (name: 'fifty' | 'info' | 'skip') => (setHints(p => ({ ...p, [name]: nullData.hints[name] })),setCurrentHint(name), name === 'skip' && next());
-    function setSettingsToURL() {
-        const { minScore: min, nsfw } = settings
-        let _set = '';
-        _set = min == 0 ? "" : `&score=${min}`;
-        switch (nsfw) {
-            case true: _set += `&censored=true`; break
-            case false: _set += `&censored=false`; break
-            case 'only': _set += `&rating=rx`; break
-        }
-        if (excludes_ids.length) {
-            _set += `&exclude_ids=${excludes_ids.join()}`
-        }
-        return _set;
-    }
+    const checkAnswer = (is: boolean) => (setPrev(data.answer), is ? (decHints(), incScore(), setCurrentHint(null), addExcludesIds()) : handleChangeStatus('lose'));
+    const restartGame = () => (SetHintsCount([0, 0, 0]), addRound(), resetAll())
+    const toggleHint = (name: 'fifty' | 'info' | 'skip') => (handleSetHintsCount(name), setHints(p => ({ ...p, [name]: nullData.hints[name] })), setCurrentHint(name), name === 'skip' && next());
     async function getData() {
         const shiki_url = "https://shikimori.one/api/animes",
             one_url = shiki_url + "?order=random",
@@ -125,6 +120,8 @@ function APIProvider({ children }: { children: React.ReactNode }) {
                 else return console.error(error);
             }
         }
+        const setSettingsToURL = ({ minScore: min, nsfw } = settings) =>
+            `${min == 0 ? '' : `&score${min}`}&${nsfw === 'only' ? 'rating=rx' : `censored${nsfw}`}${excludes_ids.length ? '&exclude_ids=' + excludes_ids.join() : ''}`
         const removeBBcode = (text: string) => text.split(/[\u002e\n\u0021]/)[0].replace(/\[.*?\]/g, "").trim() + ".";
         const filter = setSettingsToURL();
         const link = four_url + filter;
@@ -193,6 +190,7 @@ function APIProvider({ children }: { children: React.ReactNode }) {
         current_hint,
         prev,
         addHistory,
+        hintsCount
     }}>{children}</APIContext.Provider>
 }
 

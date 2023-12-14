@@ -29,3 +29,14 @@
     top: 108px;
   }
 }
+
+.hints{
+  display: flex;
+  gap:4px;
+}
+.top{
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap:2rem;
+}

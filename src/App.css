@@ -20,8 +20,10 @@
   --hints-blk-clr: #646464c4;
   --othr-btn-txt-clr: black;
   --txt-clr: #d0d0d0;
+  --txt-sec: #aaa;
   --wrong-clr: #730000;
   --correct-clr: #007700;
+  --h:600px;
 }
 :root:has(#theme:checked) {
   color-scheme: light;
@@ -31,15 +33,27 @@
   --othr-btn-clr: #4c4c4c;
   --othr-btn-txt-clr: #e1e1e1;
   --txt-clr: #232323;
+  --txt-sec: #555;
   --wrong-clr: #f54f4f;
   --correct-clr: #46ac46;
+ 
 }
 body {
-  background-color: #dfdfdf;
+  background-color: color-mix(in srgb, var(--bckg-clr), black);
+  display: grid;
+  place-content: center;
+  position: relative;
+  width: 400px;
+  height:var(--h);
+  transition: 0.4s;
+}
+html{
+  display: flex;
+  justify-content: center;
 }
 #root {
   width: 400px;
-  height: 600px;
+  height:var(--h);
   background-color: var(--bckg-clr);
   display: flex;
   flex-wrap: wrap;
@@ -47,8 +61,8 @@ body {
   transition: 0.4s;
   overflow: hidden;
 }
-#root:has(.active) {
-  height: 500px;
+body:has(.active) {
+  --h: 500px;
   .menu {
     right: 0;
   }
@@ -78,7 +92,6 @@ img[src] {
   & img {
     display: none;
   }
-
   &::after {
     content: "";
     width: 48px;
@@ -188,14 +201,23 @@ a:not([href]) {
   height: 48px;
   cursor: pointer;
   border-radius: 50%;
-  position: fixed;
+  position: absolute;
   top: 8px;
   left: 8px;
   z-index: 3;
   display: grid;
   place-content: center;
-  transition: 0.5s;
+  transition: transform 0.5s;
   &.active {
     transform: rotate(60deg);
   }
+}
+#root:has(.changed)::before {
+  content: "*";
+  position: absolute;
+  color: var(--txt-clr);
+  font-size: 2.5rem;
+  left: 64px;
+  z-index: 6;
+  line-height:2.5rem;
 }
